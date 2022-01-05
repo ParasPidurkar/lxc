@@ -1,0 +1,312 @@
+ref:-https://linuxcontainers.org/lxd/docs/master/
+
+https://community.oracle.com/tech/apps-infra/discussion/4417717/understanding-lxc-and-docker-containers-on-oracle-linux
+
+//opensource
+//containerized solution 
+//avoid dependency conflict  
+
+lxc + lxd
+The simplest way to define LXD is to say it’s an extension of LXC
+
+//install lxd in Ubuntu 
+https://linuxcontainers.org/lxd/getting-started-cli/
+
+
+//starting one time setup
+lxd init 
+...................................................................
+Images
+//container list 
+lxc list
+
+//image list    
+lxc image list
+
+
+//remote repository 
+lxc remote list
+
+
+//image copy 
+lxc image copy  images:alpine/3.14 local: --copy-aliases
+
+//launch/create container
+lxc launch alpine/3.14 test
+
+//image copy from remote repo + launch 
+lxc launch <remote>:<alias> <containerName>
+lxc launch images:alpine/3.14 test1  
+
+
+//console access of container
+lxc exec test -- sh
+OR
+lxc exec test -- bash
+
+
+//come out of container console
+exit
+
+
+//stop container
+lxc stop test
+
+
+
+//delete container
+lxc delete test
+
+//delete image 
+lxc image delete alpine/3.14 
+lxc iamge delete 1ffa8aa9672e
+
+
+
+..............................................................
+
+//remote repository 
+lxc remote list
+
+//remote repository 
+lxc remote add swarm 10.221.40.228
+
+//remove remote repo
+lxc remote remove swarm
+
+
+//image copy 
+lxc image copy  images:alpine/3.14 local: --copy-aliases
+
+http://collab.lge.com/main/display/RCICO/LXD+basic+commands
+---------------------------------------------------------------
+//Profile 
+lxc profile show default
+
+//edit profile 
+lxc profile edit default
+
+//network 
+lxc network list
+
+//check specific network configuration
+lxc network show lxdbr0
+
+------------------------------------------------------------------
+//container configuration 
+
+//check container configuration 
+lxc config show test
+
+//mount path 
+lxc config device add {container-name} {name} disk source={/path/to/source/dir/} path={/path/to/dest/onto/container/}
+lxc config device add cont_name dev_snd unix-char source=/dev/video0 path=/dev/video0
+
+lxc config set cont_name security.privileged true
+
+ID (DATABASE)	NAME	CONDITION	DESCRIPTION
+0	none	-	Inheritance blocker
+1	nic	-	Network interface
+2	disk	-	Mountpoint inside the instance
+3	unix-char	container	Unix character device
+4	unix-block	container	Unix block device
+5	usb	-	USB device
+6	gpu	-	GPU device
+7	infiniband	container	Infiniband device
+8	proxy	container	Proxy device
+9	unix-hotplug	container	Unix hotplug device
+10	tpm	-	TPM device
+11	pci	VM	PCI device
+
+ref: https://linuxcontainers.org/lxd/docs/master/instances
+
+
+
+---------------------------------------------
+//network 
+
+lxc network list
+lxc network show lxdbr0
+
+
+lxc network create <name> --type=bridge [options...]
+lxc network create lxdbr1 --type=bridge 
+
+lxc network delete lxdbr1
+  
+lxc network detach lxdbr0 container
+lxc profile edit default
+
+lxc network edit lxcbr0
+
+
+ifconfig lxdbr0 up  10.110.184.1 netmask 255.255.255.0
+  
+
+ref:
+https://linuxcontainers.org/lxd/docs/master/networks
+lxc network create <name> --type=bridge [options...]
+
+bridge: Creates an L2 bridge for connecting instances to (can provide local DHCP and DNS). This is the default.
+macvlan: Provides preset configuration to use when connecting instances to a parent macvlan interface.
+sriov: Provides preset configuration to use when connecting instances to a parent SR-IOV interface.
+ovn: Creates a logical network using the OVN software defined networking system.
+physical: Provides preset configuration to use when connecting OVN networks to a parent interface.
+
+
+-------------------------------------------------------------------------
+
+
+Operation
+//REST API
+
+curl -s --unix-socket /var/lib/lxd/unix.socket  a/1.0/images
+
+https://linuxcontainers.org/lxd/api/master/
+
+
+
+//enabling rest support 
+lxc config set core.https_address "[::]:8443"
+lxc config set core.trust_password lge123
+
+//show configuration
+lxc config show 
+
+
+
+//dir maintained for lxd 
+/var/lib/lxd/
+/home/root/.config/lxc
+
+//container rootfs  
+/var/lib/lxd/containers/testCam1/rootfs
+
+
+
+-------------------------------------------------------------
+//image creation 
+lxc image import ${metaData} ${rootfs} --alias=${contName}
+
+lxc image import /home/rajesh.sahoo/Abhijeet/lxc/meta/speakertest/speakertest.tar.gz /home/sanju.bisanal/RPI/Rpi4_lxd/build-webos/BUILD/deploy/images/raspberrypi4/speakertest-raspberrypi4.rootfs.tar.bz2 --alias=speakertest
+
+
+//iamge recipe
+/home/sanju.bisanal/RPI/Rpi4_lxd/build-webos/meta-webosose/meta-webos-virtualization/recipes-core/images
+
+-------------------------------------------------------------
+//lxd container management from windows 
+Configure windows for lxd
+
+1)Make sure you already configured rest api at client (ex. rpi)
+steps
+lxc config set core.https_address "[::]:8443"
+lxc config set core.trust_password "my-password"
+
+2) Install GO lang in windows
+https://golang.org/dl/
+
+3) Install git in windows
+https://git-scm.com/downloads
+
+4) Configure lxd in windows
+$git config --global http.https://gopkg.in.followRedirects true
+$go get -v -x github.com/lxc/lxd/lxc
+
+check
+$lxc remote list
+
+ref:https://ubuntu.com/blog/lxd-client-on-windows-and-macos 
+
+
+
+
+lxc.cgroup.devices.allow: c 189:* rwm
+lxc.mount.entry: /dev/bus/usb/001 dev/bus/usb/001 none bind,optional,create=dir
+
+
+
+
+
+
+lxc config device add face1 Mov disk source=/dev path=/dev
+
+
+
+
+socketURL => https://10.221.40.228:8888
+pyth stderr: Traceback (most recent call last):
+pyth stderr: Traceback (most recent call last):
+  File "/usr/bin/facenet-pipe.py", line 265, in <module>
+    sys.exit(main())
+  File "/usr/bin/facenet-pipe.py", line 200, in main
+    device.OpenDevice()
+  File "/usr/bin/mvnc/mvncapi.py", line 147, in OpenDevice
+    raise Exception(Status(status))
+Exception: mvncStatus.ERROR
+
+
+
+
+lxc config device set ${face-13} raw.lxc="lxc.cgroup.devices.allow =c 81:* rwm"
+
+
+
+
+printf ' lxc config device set face-13 raw.lxc="lxc.cgroup.devices.allow =c 81:* rwm"' | lxc config set face-13 raw.lxc -
+
+
+
+
+printf 'lxc.cgroup.devices.allow =c 81:* rwm' | lxc config set face-13 raw.lxc -
+
+
+
+
+
+lxc config device add face-13 Movidius gpu vendorid=03e7 productid=2150
+
+
+lxc config device add face1 Movidius1 usb vendorid=03e7 productid=0xf63b
+
+
+
+lxc config device add face-strace Movidius unix-char source= /dev/bus/usb/002/003
+
+
+
+lxc config device remove face-13 Movidius
+
+
+
+
+
+lxc config set face-13 raw.lxc="lxc.cgroup.devices.allow = c 189:* rwm"
+
+
+
+
+lxc config device add face-13 video0 unix-char path=/dev/video0
+
+
+
+
+https://jira2.lgsvl.com/browse/IPT-15501
+
+
+
+
+lxc list
+lxc network list
+lxc network create face1 --type=macvlan parent=eth0
+lxc profile edit default
+lxc restart face1
+lxc list
+
+
+
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | sudo tee /etc/udev/rules.d/80-movidius.rules
+udevadm control --reload-rules && sudo udevadm trigger
+
+
+

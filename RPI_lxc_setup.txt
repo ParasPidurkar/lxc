@@ -1,0 +1,510 @@
+    +----------------------------------------------------------------------+
+    ¦                   · MobaXterm Professional v21.0 ·                   ¦
+    ¦               (SSH client, X server and network tools)               ¦
+    ¦                                                                      ¦
+    ¦ ? SSH session to root@10.221.40.66                                   ¦
+    ¦   · Direct SSH      :  ?                                             ¦
+    ¦   · SSH compression :  ?                                             ¦
+    ¦   · SSH-browser     :  ?                                             ¦
+    ¦   · X11-forwarding  :  ?  (remote display is forwarded through SSH)  ¦
+    ¦                                                                      ¦
+    ¦ ? For more info, ctrl+click on help or visit our website.            ¦
+    +----------------------------------------------------------------------+
+
+sh: xauth: not found
+root@raspberrypi4:/var/rootdirs/home/root# lxc remote list
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+|      NAME       |                   URL                    |   PROTOCOL    |  AUTH TYPE  | PUBLIC | STATIC | GLOBAL |
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+| images          | https://images.linuxcontainers.org       | simplestreams | none        | YES    | NO     | NO     |
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+| local (current) | unix://                                  | lxd           | file access | NO     | YES    | NO     |
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+| swarm           | https://10.221.40.228:8443               | lxd           | tls         | NO     | NO     | NO     |
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+| ubuntu          | https://cloud-images.ubuntu.com/releases | simplestreams | none        | YES    | YES    | NO     |
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+| ubuntu-daily    | https://cloud-images.ubuntu.com/daily    | simplestreams | none        | YES    | YES    | NO     |
++-----------------+------------------------------------------+---------------+-------------+--------+--------+--------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc image list swarm:
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+|                ALIAS                | FINGERPRINT  | PUBLIC |            DESCRIPTION             | ARCHITECTURE |   TYPE    |  SIZE   |         UPLOAD DATE          |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| alpine/3.14 (3 more)                | 4d3071c68bad | no     | Alpine 3.14 amd64 (20211202_13:00) | x86_64       | CONTAINER | 2.91MB  | Dec 3, 2021 at 10:41am (UTC) |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| facenet                             | a2dd9c9f10d9 | no     | Webos 2.0 armhf (20210825_13:09)   | armv7l       | CONTAINER | 98.96MB | Dec 8, 2021 at 5:43am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/dxdemo-camera | a6a47b47a3f0 | no     | homesurveillance camera for dxdemo | armv7l       | CONTAINER | 67.45MB | Dec 2, 2021 at 5:16pm (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/test12-1      | 2416a989bc0a | no     | test12-1                           | armv7l       | CONTAINER | 37.63MB | Dec 6, 2021 at 6:03am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/test0612      | c17472c1a9aa | no     | test 06 12                         | armv7l       | CONTAINER | 37.63MB | Dec 6, 2021 at 5:44am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc launch swarm:facenet
+Creating the instance
+^C
+root@raspberrypi4:/var/rootdirs/home/root# lxc launch swarm:facenet face1
+Creating face1
+Starting face1
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| face1 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc exec face1 -- bash
+/ # ls
+bin      dev      home     linuxrc  mnt      proc     sbin     sysroot  usr
+boot     etc      lib      media    opt      run      sys      tmp      var
+/ # cd /home/root/
+~ # ls
+~ # ls
+~ #
+~ #
+~ # ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:16:3E:77:28:A1
+          inet6 addr: fe80::216:3eff:fe77:28a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:33 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:15 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:9482 (9.2 KiB)  TX bytes:1802 (1.7 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+~ # ifconfig eth0 down
+~ # ifconfig eth0 up
+~ # ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:16:3E:77:28:A1
+          inet6 addr: fe80::216:3eff:fe77:28a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:42 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:22 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:11008 (10.7 KiB)  TX bytes:2388 (2.3 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+~ # exit
+root@raspberrypi4:/var/rootdirs/home/root# ifconfig
+eth0      Link encap:Ethernet  HWaddr E4:5F:01:21:F2:67
+          inet addr:10.221.40.66  Bcast:10.221.40.255  Mask:255.255.255.0
+          inet6 addr: fe80::e65f:1ff:fe21:f267/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:177859 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:267911 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:122023390 (116.3 MiB)  TX bytes:318579953 (303.8 MiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:16 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:16 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1312 (1.2 KiB)  TX bytes:1312 (1.2 KiB)
+
+veth48b861d2 Link encap:Ethernet  HWaddr 66:0D:CA:71:E6:3A
+          inet6 addr: fe80::640d:caff:fe71:e63a/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:24 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:51 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:2528 (2.4 KiB)  TX bytes:13734 (13.4 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr E4:5F:01:21:F2:68
+          inet6 addr: fe80::e65f:1ff:fe21:f268/64 Scope:Link
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:172 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:47 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6552 (6.3 KiB)  TX bytes:6714 (6.5 KiB)
+
+root@raspberrypi4:/var/rootdirs/home/root# #bridge_is_down
+root@raspberrypi4:/var/rootdirs/home/root# lxc network list
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+|  NAME  |   TYPE   | MANAGED |      IPV4      |           IPV6           | DESCRIPTION | USED BY |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+| eth0   | physical | NO      |                |                          |             | 0       |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+| lxdbr0 | bridge   | YES     | 10.75.114.1/24 | fd42:d264:e3b2:71a::1/64 |             | 2       |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+| wlan0  | physical | NO      |                |                          |             | 0       |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+root@raspberrypi4:/var/rootdirs/home/root# ifconfig lxdbr0 up 10.75.114.1 netmask 255.255.255.0
+root@raspberrypi4:/var/rootdirs/home/root# ifconfig
+eth0      Link encap:Ethernet  HWaddr E4:5F:01:21:F2:67
+          inet addr:10.221.40.66  Bcast:10.221.40.255  Mask:255.255.255.0
+          inet6 addr: fe80::e65f:1ff:fe21:f267/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:179339 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:271400 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:122134323 (116.4 MiB)  TX bytes:319066803 (304.2 MiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:16 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:16 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1312 (1.2 KiB)  TX bytes:1312 (1.2 KiB)
+
+lxdbr0    Link encap:Ethernet  HWaddr 00:16:3E:71:4F:BD
+          inet addr:10.75.114.1  Bcast:10.75.114.255  Mask:255.255.255.0
+          inet6 addr: fe80::216:3eff:fe71:4fbd/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:1128 (1.1 KiB)
+
+veth48b861d2 Link encap:Ethernet  HWaddr 66:0D:CA:71:E6:3A
+          inet addr:169.254.62.247  Bcast:169.254.255.255  Mask:255.255.0.0
+          inet6 addr: fe80::640d:caff:fe71:e63a/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:27 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:77 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:2738 (2.6 KiB)  TX bytes:22742 (22.2 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr E4:5F:01:21:F2:68
+          inet6 addr: fe80::e65f:1ff:fe21:f268/64 Scope:Link
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:172 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:47 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6552 (6.3 KiB)  TX bytes:6714 (6.5 KiB)
+
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| face1 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc exec face1 -- bash\
+>
+
+/ #
+/ # ifconfig eth0 down
+/ # ifconfig eth0 up
+/ # ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:16:3E:77:28:A1
+          inet6 addr: fe80::216:3eff:fe77:28a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:94 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:34 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:26660 (26.0 KiB)  TX bytes:3324 (3.2 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+/ # exit
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| face1 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc stop face1
+root@raspberrypi4:/var/rootdirs/home/root# ifconfig
+eth0      Link encap:Ethernet  HWaddr E4:5F:01:21:F2:67
+          inet addr:10.221.40.66  Bcast:10.221.40.255  Mask:255.255.255.0
+          inet6 addr: fe80::e65f:1ff:fe21:f267/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:180194 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:273126 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:122198256 (116.5 MiB)  TX bytes:319299731 (304.5 MiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:18 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:18 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1488 (1.4 KiB)  TX bytes:1488 (1.4 KiB)
+
+lxdbr0    Link encap:Ethernet  HWaddr 00:16:3E:71:4F:BD
+          inet addr:10.75.114.1  Bcast:10.75.114.255  Mask:255.255.255.0
+          inet6 addr: fe80::216:3eff:fe71:4fbd/64 Scope:Link
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:11 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:768 (768.0 B)  TX bytes:2738 (2.6 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr E4:5F:01:21:F2:68
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:172 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:47 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6552 (6.3 KiB)  TX bytes:6714 (6.5 KiB)
+
+root@raspberrypi4:/var/rootdirs/home/root# lxc launch swarm:facenet face2
+Creating face2
+Starting face2
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| face1 | STOPPED |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face2 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc list swarm:
++------+---------+------+------+-----------+-----------+
+| NAME |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++------+---------+------+------+-----------+-----------+
+| test | RUNNING |      |      | CONTAINER | 0         |
++------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc image list swarm:
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+|                ALIAS                | FINGERPRINT  | PUBLIC |            DESCRIPTION             | ARCHITECTURE |   TYPE    |  SIZE   |         UPLOAD DATE          |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| alpine/3.14 (3 more)                | 4d3071c68bad | no     | Alpine 3.14 amd64 (20211202_13:00) | x86_64       | CONTAINER | 2.91MB  | Dec 3, 2021 at 10:41am (UTC) |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| facenet                             | a2dd9c9f10d9 | no     | Webos 2.0 armhf (20210825_13:09)   | armv7l       | CONTAINER | 98.96MB | Dec 8, 2021 at 5:43am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/dxdemo-camera | a6a47b47a3f0 | no     | homesurveillance camera for dxdemo | armv7l       | CONTAINER | 67.45MB | Dec 2, 2021 at 5:16pm (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/test12-1      | 2416a989bc0a | no     | test12-1                           | armv7l       | CONTAINER | 37.63MB | Dec 6, 2021 at 6:03am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/test0612      | c17472c1a9aa | no     | test 06 12                         | armv7l       | CONTAINER | 37.63MB | Dec 6, 2021 at 5:44am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc launch swarm:webosose/2.13.1/armhf/dxdemo-camera  cam1
+Creating cam1
+Starting cam1
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| cam1  | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face1 | STOPPED |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face2 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| cam1  | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face1 | STOPPED |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face2 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| cam1  | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face1 | STOPPED |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face2 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| cam1  | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face1 | STOPPED |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face2 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+------+------+-----------+-----------+
+| NAME  |  STATE  | IPV4 | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+------+------+-----------+-----------+
+| cam1  | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face1 | STOPPED |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+| face2 | RUNNING |      |      | CONTAINER | 0         |
++-------+---------+------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root# ifconfig
+eth0      Link encap:Ethernet  HWaddr E4:5F:01:21:F2:67
+          inet addr:10.221.40.66  Bcast:10.221.40.255  Mask:255.255.255.0
+          inet6 addr: fe80::e65f:1ff:fe21:f267/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:231117 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:278296 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:196549634 (187.4 MiB)  TX bytes:319943438 (305.1 MiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:22 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:22 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1840 (1.7 KiB)  TX bytes:1840 (1.7 KiB)
+
+lxdbr0    Link encap:Ethernet  HWaddr 00:16:3E:71:4F:BD
+          inet addr:10.75.114.1  Bcast:10.75.114.255  Mask:255.255.255.0
+          inet6 addr: fe80::216:3eff:fe71:4fbd/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:34 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:25 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:2344 (2.2 KiB)  TX bytes:3438 (3.3 KiB)
+
+veth17b648c7 Link encap:Ethernet  HWaddr 52:4F:C4:1C:E6:07
+          inet addr:169.254.84.26  Bcast:169.254.255.255  Mask:255.255.0.0
+          inet6 addr: fe80::504f:c4ff:fe1c:e607/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:15 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:57 errors:0 dropped:1 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1786 (1.7 KiB)  TX bytes:11158 (10.8 KiB)
+
+veth37aa5be7 Link encap:Ethernet  HWaddr DE:B7:0F:C2:B9:AF
+          inet6 addr: fe80::dcb7:fff:fec2:b9af/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:13 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:23 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1642 (1.6 KiB)  TX bytes:5774 (5.6 KiB)
+
+wlan0     Link encap:Ethernet  HWaddr E4:5F:01:21:F2:68
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:172 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:47 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:6552 (6.3 KiB)  TX bytes:6714 (6.5 KiB)
+
+root@raspberrypi4:/var/rootdirs/home/root# lxc network list
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+|  NAME  |   TYPE   | MANAGED |      IPV4      |           IPV6           | DESCRIPTION | USED BY |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+| eth0   | physical | NO      |                |                          |             | 0       |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+| lxdbr0 | bridge   | YES     | 10.75.114.1/24 | fd42:d264:e3b2:71a::1/64 |             | 4       |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+| wlan0  | physical | NO      |                |                          |             | 0       |
++--------+----------+---------+----------------+--------------------------+-------------+---------+
+root@raspberrypi4:/var/rootdirs/home/root# lxc config show cam1
+architecture: armv7l
+config:
+  image.architecture: armhf
+  image.description: homesurveillance camera for dxdemo
+  image.os: webOS OSE 2.13.1
+  image.release: ose 2.0
+  image.variant: default
+  volatile.base_image: a6a47b47a3f06713ce0d64f25438a9c1572d266eacb0976e71fffbac37391349
+  volatile.eth0.host_name: veth37aa5be7
+  volatile.eth0.hwaddr: 00:16:3e:b7:dd:a4
+  volatile.idmap.base: "0"
+  volatile.idmap.current: '[{"Isuid":true,"Isgid":false,"Hostid":1000000,"Nsid":0,"Maprange":65536},{"Isuid":false,"Isgid":true,"Hostid":1000000,"Nsid":0,"Maprange":65536}]'
+  volatile.idmap.next: '[{"Isuid":true,"Isgid":false,"Hostid":1000000,"Nsid":0,"Maprange":65536},{"Isuid":false,"Isgid":true,"Hostid":1000000,"Nsid":0,"Maprange":65536}]'
+  volatile.last_state.idmap: '[{"Isuid":true,"Isgid":false,"Hostid":1000000,"Nsid":0,"Maprange":65536},{"Isuid":false,"Isgid":true,"Hostid":1000000,"Nsid":0,"Maprange":65536}]'
+  volatile.last_state.power: RUNNING
+  volatile.uuid: 42e87b88-ce60-449d-8bd5-ece3bc56a819
+devices: {}
+ephemeral: false
+profiles:
+- default
+stateful: false
+description: ""
+root@raspberrypi4:/var/rootdirs/home/root# lxc config show
+config:
+  core.https_address: '[::]:8443'
+  core.trust_password: true
+root@raspberrypi4:/var/rootdirs/home/root# lxc prfile show
+Error: unknown command "prfile" for "lxc"
+
+Did you mean this?
+        file
+        profile
+
+root@raspberrypi4:/var/rootdirs/home/root# lxc profile show
+Description:
+  Show profile configurations
+
+Usage:
+  lxc profile show [<remote>:]<profile> [flags]
+
+Global Flags:
+      --debug            Show all debug messages
+      --force-local      Force using the local unix socket
+  -h, --help             Print help
+      --project string   Override the source project
+  -q, --quiet            Don't show progress information
+  -v, --verbose          Show all information messages
+      --version          Print version number
+root@raspberrypi4:/var/rootdirs/home/root# lxc profile show  default
+config: {}
+description: Default LXD profile
+devices:
+  eth0:
+    name: eth0
+    network: lxdbr0
+    type: nic
+  root:
+    path: /
+    pool: default
+    type: disk
+name: default
+used_by:
+- /1.0/instances/face1
+- /1.0/instances/face2
+- /1.0/instances/cam1
+root@raspberrypi4:/var/rootdirs/home/root# lxc list
++-------+---------+----------------------+------+-----------+-----------+
+| NAME  |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++-------+---------+----------------------+------+-----------+-----------+
+| cam1  | RUNNING | 10.75.114.179 (eth0) |      | CONTAINER | 0         |
++-------+---------+----------------------+------+-----------+-----------+
+| face1 | STOPPED |                      |      | CONTAINER | 0         |
++-------+---------+----------------------+------+-----------+-----------+
+| face2 | RUNNING |                      |      | CONTAINER | 0         |
++-------+---------+----------------------+------+-----------+-----------+
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root#
+root@raspberrypi4:/var/rootdirs/home/root# cd /var/lib/lxd/containers/
+root@raspberrypi4:/var/lib/lxd/containers# ls
+cam1   face1  face2
+root@raspberrypi4:/var/lib/lxd/containers# cd face2/
+root@raspberrypi4:/var/lib/lxd/containers/face2# ls
+backup.yaml    metadata.yaml  rootfs         templates
+root@raspberrypi4:/var/lib/lxd/containers/face2# cd rootfs/
+root@raspberrypi4:/var/lib/lxd/containers/face2/rootfs# LS
+-sh: LS: not found
+root@raspberrypi4:/var/lib/lxd/containers/face2/rootfs# ls
+bin      dev      home     linuxrc  mnt      proc     sbin     sysroot  usr
+boot     etc      lib      media    opt      run      sys      tmp      var
+root@raspberrypi4:/var/lib/lxd/containers/face2/rootfs#

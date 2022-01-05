@@ -1,0 +1,93 @@
+    +----------------------------------------------------------------------+
+    ¦                   · MobaXterm Professional v21.0 ·                   ¦
+    ¦               (SSH client, X server and network tools)               ¦
+    ¦                                                                      ¦
+    ¦ ? SSH session to swarm@10.221.40.228                                 ¦
+    ¦   · Direct SSH      :  ?                                             ¦
+    ¦   · SSH compression :  ?                                             ¦
+    ¦   · SSH-browser     :  ?                                             ¦
+    ¦   · X11-forwarding  :  ?  (remote display is forwarded through SSH)  ¦
+    ¦                                                                      ¦
+    ¦ ? For more info, ctrl+click on help or visit our website.            ¦
+    +----------------------------------------------------------------------+
+
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-154-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+99 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+New release '20.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+Last login: Wed Dec  8 10:46:37 2021 from 10.221.40.61
+swarm@archteam-OptiPlex-3050:~$ ls
+ 5fc94479f588171282beb094da96bb83eb51420d6cf13b223c737d1fda9169cd        Documents   local:.root   Paras             Sanju       test.js
+ 5fc94479f588171282beb094da96bb83eb51420d6cf13b223c737d1fda9169cd.root   Downloads   lxd           Pictures          snap        Videos
+ add                                                                     kafka       lxd.tar.xz    Public            Templates  'VirtualBox VMs'
+ Desktop                                                                 local:      Music         rootfs.squashfs   test
+swarm@archteam-OptiPlex-3050:~$ cd Paras
+swarm@archteam-OptiPlex-3050:~/Paras$ ls
+abhijeet_integration  final_form  kettle  lxc_facenet  stage14  test
+swarm@archteam-OptiPlex-3050:~/Paras$ cd lxc_facenet/
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ ls
+facenet-raspberrypi4-master-20211207063213.tar.bz2
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ mkdir meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ cd meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ pwd
+/home/swarm/Paras/lxc_facenet/meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ ls
+lxd.tar.xz  metadata.yaml  templates
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ cd ..
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ ls
+facenet-raspberrypi4-master-20211207063213.tar.bz2  meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ pwd
+/home/swarm/Paras/lxc_facenet
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ ls
+facenet-raspberrypi4-master-20211207063213.tar.bz2  meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ cd meta/
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ ls
+lxd.tar.xz  metadata.yaml  templates
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ rm -rf lxd.tar.xz
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ ls
+metadata.yaml  templates
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ vi metadata.yaml
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ ls
+lxd.tar.xz  metadata.yaml  templates
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ pwd
+/home/swarm/Paras/lxc_facenet/meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ ls
+lxd.tar.xz  metadata.yaml  templates
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/meta$ cd ..
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ ls
+facenet-raspberrypi4-master-20211207063213.tar.bz2  meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ pwd
+/home/swarm/Paras/lxc_facenet
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ ls
+facenet-raspberrypi4-master-20211207063213.tar.bz2  meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ ls
+facenet-raspberrypi4-master-20211207063213.tar.bz2  meta
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ mkdir command
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet$ cd command
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/command$ lxc image import /home/swarm/Paras/lxc_facenet/meta/lxd.tar.xz  /home/swarm/Paras/lxc_facenet/facenet-raspberrypi4-master-20211207063213.tar.bz2  --alias=facenet
+Image imported with fingerprint: a2dd9c9f10d9d712b8261cfe4857b67595ac8b98722b1de078fd8c54c6996193
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/command$ ls
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/command$ lxc image list
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+|                ALIAS                | FINGERPRINT  | PUBLIC |            DESCRIPTION             | ARCHITECTURE |   TYPE    |  SIZE   |         UPLOAD DATE          |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| alpine/3.14 (3 more)                | 4d3071c68bad | no     | Alpine 3.14 amd64 (20211202_13:00) | x86_64       | CONTAINER | 2.91MB  | Dec 3, 2021 at 10:41am (UTC) |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| facenet                             | a2dd9c9f10d9 | no     | Webos 2.0 armhf (20210825_13:09)   | armv7l       | CONTAINER | 98.96MB | Dec 8, 2021 at 5:43am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/dxdemo-camera | a6a47b47a3f0 | no     | homesurveillance camera for dxdemo | armv7l       | CONTAINER | 67.45MB | Dec 2, 2021 at 5:16pm (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/test12-1      | 2416a989bc0a | no     | test12-1                           | armv7l       | CONTAINER | 37.63MB | Dec 6, 2021 at 6:03am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+| webosose/2.13.1/armhf/test0612      | c17472c1a9aa | no     | test 06 12                         | armv7l       | CONTAINER | 37.63MB | Dec 6, 2021 at 5:44am (UTC)  |
++-------------------------------------+--------------+--------+------------------------------------+--------------+-----------+---------+------------------------------+
+swarm@archteam-OptiPlex-3050:~/Paras/lxc_facenet/command$
+
